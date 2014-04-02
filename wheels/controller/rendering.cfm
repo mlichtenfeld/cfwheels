@@ -31,15 +31,15 @@
 
 	<!--- This page is remote. no need for a layout --->
 	<cfset arguments.layout = false>
-	<!--- assume there is a js version of the template if template name matches action. may want to add a way to override this later. --->
-	<cfif arguments.action == listfirst(arguments.template,'.')>
-		<cfset arguments.template = Replace(arguments.template,".cfm",".js.cfm")>
+	<cfif !arguments.template.length()>
+		<cfset arguments.template = arguments.action & ".js.cfm">
 	</cfif>
 
 	<!--- hideDebugInformation doesn't hide CF debug info. default to hidden is set in args above. --->
 	<cfif !arguments.hideDebugInformation>
 		<cfsetting showdebugoutput="false">
 	</cfif>
+
 	<cfcontent type="text/javascript">
 	<cfset renderPage(argumentCollection=arguments)>
 </cffunction>
